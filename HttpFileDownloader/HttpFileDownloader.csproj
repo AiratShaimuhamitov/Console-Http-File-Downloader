@@ -51,12 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IParameter.cs" />
-    <Compile Include="Parameters\FilePathParameter.cs" />
-    <Compile Include="Parameters\OutputPathParameter.cs" />
-    <Compile Include="Parameters\Parameter.cs" />
-    <Compile Include="Parameters\SpeedParameter.cs" />
-    <Compile Include="Parameters\ThreadParameter.cs" />
+    <Compile Include="Models\Files\File.cs" />
+    <Compile Include="Models\Parameters\Interfaces\IParameter.cs" />
+    <Compile Include="Models\Parameters\FilePathParameter.cs" />
+    <Compile Include="Models\Parameters\OutputPathParameter.cs" />
+    <Compile Include="Models\Parameters\Parameter.cs" />
+    <Compile Include="Models\Parameters\SpeedParameter.cs" />
+    <Compile Include="Models\Parameters\ThreadParameter.cs" />
+    <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\ParameterService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
