@@ -1,5 +1,8 @@
 ﻿namespace HttpFileDownloader.Models.Files
 {
+    /// <summary>
+    /// Link model 
+    /// </summary>
     public class Link
     {
         public string Name { get; set; }

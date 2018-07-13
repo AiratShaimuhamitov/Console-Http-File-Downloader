@@ -7,20 +7,20 @@ using System.Text.RegularExpressions;
 
 namespace HttpFileDownloader.Services
 {
-    public class LinkService
+    public class LinkUtility
     {
         public FilePathParameter PathParameter { get; set; }
 
-        public LinkService(FilePathParameter pathParameter)
+        public LinkUtility(FilePathParameter pathParameter)
         {
             this.PathParameter = pathParameter;
         }
 
-        public List<Link> GetFiles()
+        public List<Link> GetLinks()
         {
             var links = new List<Link>();
 
-            string[] lines = File.ReadAllLines(PathParameter.Value);
+            var lines = File.ReadAllLines(PathParameter.Value);
 
             foreach(var line in lines)
             {

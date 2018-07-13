@@ -51,6 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Interfaces\IConfiguration.cs" />
+    <Compile Include="Configurations\OutputConfiguration.cs" />
+    <Compile Include="Configurations\SpeedConfiguration.cs" />
+    <Compile Include="Configurations\ThreadConfiguration.cs" />
     <Compile Include="Models\Link.cs" />
     <Compile Include="Models\Parameters\Interfaces\IParameter.cs" />
     <Compile Include="Models\Parameters\FilePathParameter.cs" />
@@ -58,8 +62,9 @@
     <Compile Include="Models\Parameters\Parameter.cs" />
     <Compile Include="Models\Parameters\SpeedParameter.cs" />
     <Compile Include="Models\Parameters\ThreadParameter.cs" />
-    <Compile Include="Services\LinkService.cs" />
-    <Compile Include="Services\ParameterService.cs" />
+    <Compile Include="Services\DownloadService.cs" />
+    <Compile Include="Utilities\LinkUtility.cs" />
+    <Compile Include="Utilities\ParameterUtility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -16,9 +16,6 @@ namespace HttpFileDownloader.Parameters
         {
             Directive = directive;
             Value = value;
-
-            if (!Verify())
-                throw new ArgumentException("Wrong " + GetType().Name + " parameter.");
         }
 
         public virtual bool Verify()

@@ -1,23 +1,24 @@
-﻿using HttpFileDownloader.Parameters;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using HttpFileDownloader.Parameters;
 
-namespace HttpFileDownloader
+namespace HttpFileDownloader.Utilities
 {
-    public class ParameterService
+    public class ParameterUtility
     {        
-        private ParameterService() { }
+        private ParameterUtility() { }
 
-        public static IEnumerable<IParameter> GetParameters(string[] args)
+        /// <summary>
+        /// Get parameters from string. 
+        /// </summary>
+        /// <param name="args">Parameters from console</param>
+        /// <returns>Collection of parameters</returns>
+        public List<Parameter> GetParameters(string[] args)
         {
             if (!VerifyArgumentString(args))
                 throw new ArgumentException("Wrong parameters");
 
-            var parameters = new List<IParameter>();
+            var parameters = new List<Parameter>();
 
             for(var i = 0; i < args.Length; i++)
             {
@@ -41,8 +42,11 @@ namespace HttpFileDownloader
 
             return parameters;
         }
-
-        private static bool VerifyArgumentString(string[] args)
+        
+        /// <summary>
+        /// Verify argument string 
+        /// </summary>
+        private bool VerifyArgumentString(string[] args)
         {
             if (args.Length % 2 != 0)
                 return false;
@@ -52,10 +56,20 @@ namespace HttpFileDownloader
             {
                 if (directives.Contains(args[i]))
                     return false;
-                else
-                    directives.Add(args[i]);
+                directives.Add(args[i]);
             }
             return true;
         }
+
+        /// <summary>
+        /// Verify parameters
+        /// </summary>
+        private void VerifyParameters(IEnumerable<Parameter> parameters)
+        {
+            foreach (var parameter in parameters)
+            {
+                parameter.Verify();
+            }
+        } 
     }
 }
