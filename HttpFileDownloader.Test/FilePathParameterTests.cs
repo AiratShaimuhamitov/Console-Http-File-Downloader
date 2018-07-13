@@ -36,14 +36,8 @@ namespace HttpFileDownloader.Test
             bool expected = false;
             bool result = true;
 
-            try
-            {
-                parameter = new FilePathParameter(directive, value);
-            } 
-            catch(Exception e)
-            {
-                result = false;
-            }
+            parameter = new FilePathParameter(directive, value);
+            result = parameter.Verify();
 
             Assert.AreEqual(expected, result);
         }
