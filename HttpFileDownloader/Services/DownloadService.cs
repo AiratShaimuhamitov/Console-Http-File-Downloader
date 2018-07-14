@@ -13,12 +13,34 @@ namespace HttpFileDownloader.Services
 {
     public class DownloadService
     {
-        private List<FileLink> _links;
-        private string _outputPath;
+        /// <summary>
+        /// File name with links for downloading
+        /// </summary>
+        private readonly List<FileLink> _links;
+        /// <summary>
+        /// Output file name
+        /// </summary>
+        private readonly string _outputPath;
+        /// <summary>
+        /// Thrad count (Not supported)
+        /// </summary>
         private int _threadCount;
+        /// <summary>
+        /// speedInKbps
+        /// </summary>
         private int _speedInKbps;
+        /// <summary>
+        /// Buffer size
+        /// </summary>
         private const int BufferSize = 8192;
 
+        /// <summary>
+        /// Download service
+        /// </summary>
+        /// <param name="links">File name with links for downloading</param>
+        /// <param name="outputPath">Output file name</param>
+        /// <param name="threadCount">Thrad count (Not supported)</param>
+        /// <param name="speedInKbps">Speed in kb/s</param>
         public DownloadService(List<FileLink> links, string outputPath, int threadCount, int speedInKbps)
         {
             this._links = links;
@@ -27,6 +49,9 @@ namespace HttpFileDownloader.Services
             this._speedInKbps = speedInKbps;
         }
 
+        /// <summary>
+        /// Start download
+        /// </summary>
         public void Download()
         {
             using (var client = new WebClient())

@@ -32,7 +32,7 @@ namespace HttpFileDownloader
             CreateConfigurationsFromParameters(parameters);
 
             var downloadService = new DownloadService(
-                LinkUtility.GetLinks(filePathParameter.Value),
+                FileLinkUtility.GetFileLinks(filePathParameter.Value),
                 _outputConfiguration.OutputPath,
                 _threadConfiguration.ThreadCount,
                 _speedConfiguration.Speed);

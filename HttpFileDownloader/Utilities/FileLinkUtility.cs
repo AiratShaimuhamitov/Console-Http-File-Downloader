@@ -6,10 +6,13 @@ using HttpFileDownloader.Parameters;
 
 namespace HttpFileDownloader.Utilities
 {
-    public static class LinkUtility
+    public static class FileLinkUtility
     {
-
-        public static List<FileLink> GetLinks(string fileLocation)
+        /// <summary>
+        /// Get file links from file name
+        /// </summary>
+        /// <param name="fileLocation">File name with links</param>
+        public static List<FileLink> GetFileLinks(string fileLocation)
         {
             var links = new List<FileLink>();
 
@@ -26,6 +29,9 @@ namespace HttpFileDownloader.Utilities
             return links;
         }
 
+        /// <summary>
+        /// Verify link
+        /// </summary>
         public static bool VerifyLink(string path, string name)
         {
             return Regex.IsMatch(path, @"^https?://\w*.") && Regex.IsMatch(name, @"\w*.\w*");         
