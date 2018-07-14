@@ -13,10 +13,6 @@ namespace HttpFileDownloader
 {
     public class Program
     {
-        private SpeedConfiguration _speedConfiguration;
-        private OutputConfiguration _outputConfiguration;
-        private ThreadConfiguration _threadConfiguration;
-
         private void Handle(string[] args)
         {
             var parameters = ParameterUtility.GetParameters(args);
@@ -29,13 +25,15 @@ namespace HttpFileDownloader
                 return;
             }
 
-            CreateConfigurationsFromParameters(parameters);
+            var outputPath = parameters.First(x => x is OutputPathParameter).Value;
+            var threadCount = int.Parse(parameters.First(x => x is ThreadParameter).Value);
+            var speed = int.Parse(parameters.First(x => x is SpeedParameter).Value);
 
             var downloadService = new DownloadService(
                 FileLinkUtility.GetFileLinks(filePathParameter.Value),
-                _outputConfiguration.OutputPath,
-                _threadConfiguration.ThreadCount,
-                _speedConfiguration.Speed);
+                outputPath,
+                threadCount,
+                speed);
             
             downloadService.Download();
         }
@@ -45,25 +43,6 @@ namespace HttpFileDownloader
             var program = new Program();
             program.Handle(args);
             Console.ReadLine();
-        }
-
-        private void CreateConfigurationsFromParameters(IEnumerable<Parameter> parameters)
-        {
-            foreach (var parameter in parameters)
-            {
-                switch (parameter)
-                {
-                    case ThreadParameter _:
-                        _threadConfiguration = new ThreadConfiguration(int.Parse(parameter.Value));
-                        break;
-                    case SpeedParameter _:
-                        _speedConfiguration = new SpeedConfiguration(int.Parse(parameter.Value));
-                        break;
-                    case OutputPathParameter _:
-                        _outputConfiguration = new OutputConfiguration(parameter.Value);
-                        break;
-                }
-            }
         }
     }
 }

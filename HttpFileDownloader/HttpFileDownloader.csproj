@@ -51,10 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\Interfaces\IConfiguration.cs" />
-    <Compile Include="Configurations\OutputConfiguration.cs" />
     <Compile Include="Configurations\SpeedConfiguration.cs" />
-    <Compile Include="Configurations\ThreadConfiguration.cs" />
     <Compile Include="Models\FileLink.cs" />
     <Compile Include="Models\Parameters\Interfaces\IParameter.cs" />
     <Compile Include="Models\Parameters\FilePathParameter.cs" />
