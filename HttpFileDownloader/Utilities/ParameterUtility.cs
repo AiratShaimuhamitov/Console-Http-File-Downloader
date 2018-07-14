@@ -13,7 +13,7 @@ namespace HttpFileDownloader.Utilities
         /// </summary>
         /// <param name="args">Parameters from console</param>
         /// <returns>Collection of parameters</returns>
-        public List<Parameter> GetParameters(string[] args)
+        public static List<Parameter> GetParameters(string[] args)
         {
             if (!VerifyArgumentString(args))
                 throw new ArgumentException("Wrong parameters");
@@ -22,21 +22,20 @@ namespace HttpFileDownloader.Utilities
 
             for(var i = 0; i < args.Length; i++)
             {
-                if (args[i] == "-n")
+                switch (args[i])
                 {
-                    parameters.Add(new ThreadParameter(args[i], args[i + 1]));
-                }
-                else if (args[i] == "-l")
-                {
-                    parameters.Add(new SpeedParameter(args[i], args[i + 1]));
-                }
-                else if (args[i] == "-f")
-                {
-                    parameters.Add(new FilePathParameter(args[i], args[i + 1]));
-                }
-                else if (args[i] == "-o")
-                {
-                    parameters.Add(new OutputPathParameter(args[i], args[i + 1]));
+                    case "-n":
+                        parameters.Add(new ThreadParameter(args[i], args[i + 1]));
+                        break;
+                    case "-l":
+                        parameters.Add(new SpeedParameter(args[i], args[i + 1]));
+                        break;
+                    case "-f":
+                        parameters.Add(new FilePathParameter(args[i], args[i + 1]));
+                        break;
+                    case "-o":
+                        parameters.Add(new OutputPathParameter(args[i], args[i + 1]));
+                        break;
                 }
             }
 
@@ -46,7 +45,7 @@ namespace HttpFileDownloader.Utilities
         /// <summary>
         /// Verify argument string 
         /// </summary>
-        private bool VerifyArgumentString(string[] args)
+        public static bool VerifyArgumentString(string[] args)
         {
             if (args.Length % 2 != 0)
                 return false;

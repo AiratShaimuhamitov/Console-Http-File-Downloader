@@ -1,26 +1,19 @@
-﻿using HttpFileDownloader.Models.Files;
-using HttpFileDownloader.Parameters;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using HttpFileDownloader.Models.Files;
+using HttpFileDownloader.Parameters;
 
-namespace HttpFileDownloader.Services
+namespace HttpFileDownloader.Utilities
 {
-    public class LinkUtility
+    public static class LinkUtility
     {
-        public FilePathParameter PathParameter { get; set; }
 
-        public LinkUtility(FilePathParameter pathParameter)
-        {
-            this.PathParameter = pathParameter;
-        }
-
-        public List<Link> GetLinks()
+        public static List<Link> GetLinks(string fileLocation)
         {
             var links = new List<Link>();
 
-            var lines = File.ReadAllLines(PathParameter.Value);
+            var lines = File.ReadAllLines(fileLocation);
 
             foreach(var line in lines)
             {
@@ -33,7 +26,7 @@ namespace HttpFileDownloader.Services
             return links;
         }
 
-        private bool VerifyLink(string path, string name)
+        public static bool VerifyLink(string path, string name)
         {
             return Regex.IsMatch(path, @"^https?://\w*.") && Regex.IsMatch(name, @"\w*.\w*");         
         }
