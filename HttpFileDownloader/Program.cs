@@ -43,6 +43,7 @@ namespace HttpFileDownloader
         {
             var program = new Program();
             program.Handle(args);
+            Console.ReadLine();
         }
 
         private void CreateConfigurationsFromParameters(IEnumerable<Parameter> parameters)

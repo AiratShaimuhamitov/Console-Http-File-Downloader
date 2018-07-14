@@ -7,12 +7,19 @@ using HttpFileDownloader.Configurations.Interfaces;
 
 namespace HttpFileDownloader.Configurations
 {
+    /// <summary>
+    /// Speed in Kbps
+    /// </summary>
     public class SpeedConfiguration : IConfiguration
     {
         private readonly int defaultSpeed = 1024;
 
         public int Speed { get; set; }
 
+        /// <summary>
+        /// Initialize object with kbps value
+        /// </summary>
+        /// <param name="speed">Kbps value</param>
         public SpeedConfiguration(int speed)
         {
             Speed = speed == 0 ? defaultSpeed : speed;
