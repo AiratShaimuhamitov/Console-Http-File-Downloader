@@ -30,7 +30,11 @@ namespace HttpFileDownloader
 
             CreateConfigurationsFromParameters(parameters);
 
-            var downloadService = new DownloadService(LinkUtility.GetLinks(filePathParameter.Value));
+            var downloadService = new DownloadService(
+                LinkUtility.GetLinks(filePathParameter.Value),
+                outputConfiguration.OutputPath,
+                threadConfiguration.ThreadCount,
+                speedConfiguration.Speed);
             
             downloadService.Download();
         }
@@ -48,10 +52,10 @@ namespace HttpFileDownloader
                 switch (parameter)
                 {
                     case ThreadParameter _:
-                        threadConfiguration = new ThreadConfiguration();
+                        threadConfiguration = new ThreadConfiguration(int.Parse(parameter.Value));
                         break;
                     case SpeedParameter _:
-                        speedConfiguration = new SpeedConfiguration();
+                        speedConfiguration = new SpeedConfiguration(int.Parse(parameter.Value));
                         break;
                     case OutputPathParameter _:
                         outputConfiguration = new OutputConfiguration(parameter.Value);

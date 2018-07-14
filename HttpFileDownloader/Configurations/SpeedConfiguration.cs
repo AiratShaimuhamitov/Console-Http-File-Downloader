@@ -9,5 +9,13 @@ namespace HttpFileDownloader.Configurations
 {
     public class SpeedConfiguration : IConfiguration
     {
+        private readonly int defaultSpeed = 1024;
+
+        public int Speed { get; set; }
+
+        public SpeedConfiguration(int speed)
+        {
+            Speed = speed == 0 ? defaultSpeed : speed;
+        }
     }
 }

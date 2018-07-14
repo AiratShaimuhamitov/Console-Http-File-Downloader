@@ -63,6 +63,7 @@
     <Compile Include="Models\Parameters\SpeedParameter.cs" />
     <Compile Include="Models\Parameters\ThreadParameter.cs" />
     <Compile Include="Services\DownloadService.cs" />
+    <Compile Include="Streams\ThrottledStream.cs" />
     <Compile Include="Utilities\LinkUtility.cs" />
     <Compile Include="Utilities\ParameterUtility.cs" />
     <Compile Include="Program.cs" />
