@@ -9,9 +9,9 @@ namespace HttpFileDownloader.Utilities
     public static class LinkUtility
     {
 
-        public static List<Link> GetLinks(string fileLocation)
+        public static List<FileLink> GetLinks(string fileLocation)
         {
-            var links = new List<Link>();
+            var links = new List<FileLink>();
 
             var lines = File.ReadAllLines(fileLocation);
 
@@ -20,7 +20,7 @@ namespace HttpFileDownloader.Utilities
                 var path = line.Split(' ')[0];
                 var name = line.Split(' ')[1];
                 if (VerifyLink(path, name))
-                    links.Add(new Link(path, name));
+                    links.Add(new FileLink(path, name));
             }
 
             return links;

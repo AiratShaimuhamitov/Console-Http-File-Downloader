@@ -13,40 +13,41 @@ namespace HttpFileDownloader.Services
 {
     public class DownloadService
     {
-        private List<Link> links;
-        private string outputPath;
-        private int threadCount;
-        private int speedInKbps;
+        private List<FileLink> _links;
+        private string _outputPath;
+        private int _threadCount;
+        private int _speedInKbps;
         private const int BufferSize = 8192;
 
-        public DownloadService(List<Link> links, string outputPath, int threadCount, int speedInKbps)
+        public DownloadService(List<FileLink> links, string outputPath, int threadCount, int speedInKbps)
         {
-            this.links = links;
-            this.outputPath = outputPath;
-            this.threadCount = threadCount;
-            this.speedInKbps = speedInKbps;
+            this._links = links;
+            this._outputPath = outputPath;
+            this._threadCount = threadCount;
+            this._speedInKbps = speedInKbps;
         }
 
         public void Download()
         {
             using (var client = new WebClient())
             {
-                foreach (var link in links)
+                foreach (var link in _links)
                 {
                     DownloadFile(link, client);
                 }
             }
         }
 
-        private void DownloadFile(Link link, WebClient client)
+        private void DownloadFile(FileLink fileLink, WebClient client)
         {
-            var sppedInBps = speedInKbps * 1024;
+            Console.WriteLine("File {0} status - started.", fileLink.Name);
+            var sppedInBps = _speedInKbps * 1024;
 
-            using (var stream = client.OpenRead(link.HttpAddress))
+            using (var stream = client.OpenRead(fileLink.HttpAddress))
             {    
                 var throttledStream = new ThrottledStream(stream, sppedInBps);
 
-                var fileName = outputPath + link.Name;
+                var fileName = _outputPath + fileLink.Name;
 
                 using (var file = File.Create(fileName))
                 {
@@ -61,7 +62,7 @@ namespace HttpFileDownloader.Services
                 }
                 throttledStream.Close();
             }
-            Console.WriteLine("File {0} status - downloaded.", link.Name);
+            Console.WriteLine("File {0} status - downloaded.", fileLink.Name);
         }
     }
 }

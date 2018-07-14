@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using HttpFileDownloader.Configurations;
 using HttpFileDownloader.Parameters;
@@ -12,9 +13,9 @@ namespace HttpFileDownloader
 {
     public class Program
     {
-        private SpeedConfiguration speedConfiguration;
-        private OutputConfiguration outputConfiguration;
-        private ThreadConfiguration threadConfiguration;
+        private SpeedConfiguration _speedConfiguration;
+        private OutputConfiguration _outputConfiguration;
+        private ThreadConfiguration _threadConfiguration;
 
         private void Handle(string[] args)
         {
@@ -22,7 +23,7 @@ namespace HttpFileDownloader
 
             var filePathParameter = parameters.FirstOrDefault(x => x.GetType() == typeof(FilePathParameter));
 
-            if (filePathParameter == null || string.IsNullOrEmpty(filePathParameter.Value))
+            if (filePathParameter == null || string.IsNullOrEmpty(filePathParameter.Value) || File.Exists(filePathParameter.Value))
             {
                 Console.WriteLine("Error: the file path parameter not found.");
                 return;
@@ -32,9 +33,9 @@ namespace HttpFileDownloader
 
             var downloadService = new DownloadService(
                 LinkUtility.GetLinks(filePathParameter.Value),
-                outputConfiguration.OutputPath,
-                threadConfiguration.ThreadCount,
-                speedConfiguration.Speed);
+                _outputConfiguration.OutputPath,
+                _threadConfiguration.ThreadCount,
+                _speedConfiguration.Speed);
             
             downloadService.Download();
         }
@@ -53,13 +54,13 @@ namespace HttpFileDownloader
                 switch (parameter)
                 {
                     case ThreadParameter _:
-                        threadConfiguration = new ThreadConfiguration(int.Parse(parameter.Value));
+                        _threadConfiguration = new ThreadConfiguration(int.Parse(parameter.Value));
                         break;
                     case SpeedParameter _:
-                        speedConfiguration = new SpeedConfiguration(int.Parse(parameter.Value));
+                        _speedConfiguration = new SpeedConfiguration(int.Parse(parameter.Value));
                         break;
                     case OutputPathParameter _:
-                        outputConfiguration = new OutputConfiguration(parameter.Value);
+                        _outputConfiguration = new OutputConfiguration(parameter.Value);
                         break;
                 }
             }

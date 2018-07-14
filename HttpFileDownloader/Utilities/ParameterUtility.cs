@@ -4,10 +4,8 @@ using HttpFileDownloader.Parameters;
 
 namespace HttpFileDownloader.Utilities
 {
-    public class ParameterUtility
+    public static class ParameterUtility
     {        
-        private ParameterUtility() { }
-
         /// <summary>
         /// Get parameters from string. 
         /// </summary>
@@ -22,21 +20,25 @@ namespace HttpFileDownloader.Utilities
 
             for(var i = 0; i < args.Length; i++)
             {
-                switch (args[i])
+                Parameter parameter = null;
+
+                if (args[i] == "-n")
+                    parameter = new ThreadParameter(args[i], args[i + 1]);
+                else if (args[i] == "-l")
                 {
-                    case "-n":
-                        parameters.Add(new ThreadParameter(args[i], args[i + 1]));
-                        break;
-                    case "-l":
-                        parameters.Add(new SpeedParameter(args[i], args[i + 1]));
-                        break;
-                    case "-f":
-                        parameters.Add(new FilePathParameter(args[i], args[i + 1]));
-                        break;
-                    case "-o":
-                        parameters.Add(new OutputPathParameter(args[i], args[i + 1]));
-                        break;
+                    parameter = new SpeedParameter(args[i], args[i + 1]);
                 }
+                else if (args[i] == "-f")
+                {
+                    parameter = new FilePathParameter(args[i], args[i + 1]);
+                }
+                else if (args[i] == "-o")
+                {
+                    parameter = new OutputPathParameter(args[i], args[i + 1]);
+                }
+
+                if (parameter != null && parameter.Verify())
+                    parameters.Add(parameter);
             }
 
             return parameters;
@@ -45,7 +47,7 @@ namespace HttpFileDownloader.Utilities
         /// <summary>
         /// Verify argument string 
         /// </summary>
-        public static bool VerifyArgumentString(string[] args)
+        private static bool VerifyArgumentString(string[] args)
         {
             if (args.Length % 2 != 0)
                 return false;
@@ -59,16 +61,5 @@ namespace HttpFileDownloader.Utilities
             }
             return true;
         }
-
-        /// <summary>
-        /// Verify parameters
-        /// </summary>
-        private void VerifyParameters(IEnumerable<Parameter> parameters)
-        {
-            foreach (var parameter in parameters)
-            {
-                parameter.Verify();
-            }
-        } 
     }
 }

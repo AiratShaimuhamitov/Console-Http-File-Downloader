@@ -9,13 +9,13 @@ namespace HttpFileDownloader.Configurations
 {
     public class ThreadConfiguration : IConfiguration
     {
-        private readonly int defaultCount = 1;
+        private readonly int _defaultCount = 1;
 
         public int ThreadCount { get; set; }
 
         public ThreadConfiguration(int threadCount)
         {
-            ThreadCount = threadCount == 0 ? defaultCount : threadCount;
+            ThreadCount = threadCount == 0 ? _defaultCount : threadCount;
         }
     }
 }

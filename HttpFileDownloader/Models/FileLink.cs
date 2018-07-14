@@ -1,14 +1,20 @@
 ﻿namespace HttpFileDownloader.Models.Files
 {
     /// <summary>
-    /// Link model 
+    /// FileLink model 
     /// </summary>
-    public class Link
+    public class FileLink
     {
+        /// <summary>
+        /// File name
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Http address of file
+        /// </summary>
         public string HttpAddress { get; set; }
 
-        public Link(string HttpAddress, string Name)
+        public FileLink(string HttpAddress, string Name)
         {
             this.HttpAddress = HttpAddress;
             this.Name = Name;

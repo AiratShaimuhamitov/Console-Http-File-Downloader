@@ -12,7 +12,7 @@ namespace HttpFileDownloader.Configurations
     /// </summary>
     public class SpeedConfiguration : IConfiguration
     {
-        private readonly int defaultSpeed = 1024;
+        private readonly int _defaultSpeed = 1024;
 
         public int Speed { get; set; }
 
@@ -22,7 +22,7 @@ namespace HttpFileDownloader.Configurations
         /// <param name="speed">Kbps value</param>
         public SpeedConfiguration(int speed)
         {
-            Speed = speed == 0 ? defaultSpeed : speed;
+            Speed = speed == 0 ? _defaultSpeed : speed;
         }
     }
 }
