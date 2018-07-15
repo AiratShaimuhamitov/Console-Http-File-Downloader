@@ -15,7 +15,7 @@ namespace HttpFileDownloader.Parameters
 
         public override bool Verify()
         {
-            return base.Verify() && Regex.IsMatch(Value, "\\d+[k,m]");
+            return base.Verify() && Regex.IsMatch(Value, "\\d+[k,m]?");
         }
     }
 }
