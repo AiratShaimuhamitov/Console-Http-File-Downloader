@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using HttpFileDownloader.Configurations.Interfaces;
 
 namespace HttpFileDownloader.Configurations
 {
     /// <summary>
     /// Speed in Kbps
     /// </summary>
-    public class SpeedConfiguration : IConfiguration
+    public class SpeedConfiguration
     {
         private readonly int _defaultSpeed = 1024;
 
@@ -20,9 +20,18 @@ namespace HttpFileDownloader.Configurations
         /// Initialize object with kbps value
         /// </summary>
         /// <param name="speed">Kbps value</param>
-        public SpeedConfiguration(int speed)
+        /// <param name="type">Type of speed</param>
+        public SpeedConfiguration(int speed, string type)
         {
-            Speed = speed == 0 ? _defaultSpeed : speed;
+            if (speed == 0)
+            {
+                Speed = _defaultSpeed;
+                return;
+            }
+
+            Speed = speed;
+            if (type == "m")
+                Speed *= 1024;
         }
     }
 }

@@ -28,11 +28,16 @@ namespace HttpFileDownloader.Services
         /// <summary>
         /// speedInKbps
         /// </summary>
-        private int _speedInKbps;
+        private readonly int _speedInKbps;
         /// <summary>
         /// Buffer size
         /// </summary>
         private const int BufferSize = 8192;
+
+        /// <summary>
+        /// Timer for statistics
+        /// </summary>
+        private Stopwatch _timer;
 
         /// <summary>
         /// Download service
@@ -47,6 +52,7 @@ namespace HttpFileDownloader.Services
             this._outputPath = outputPath;
             this._threadCount = threadCount;
             this._speedInKbps = speedInKbps;
+            _timer = new Stopwatch();
         }
 
         /// <summary>
@@ -68,6 +74,7 @@ namespace HttpFileDownloader.Services
             Console.WriteLine("File {0} status - started.", fileLink.Name);
             var sppedInBps = _speedInKbps * 1024;
 
+            _timer.Start();
             using (var stream = client.OpenRead(fileLink.HttpAddress))
             {    
                 var throttledStream = new ThrottledStream(stream, sppedInBps);
@@ -87,7 +94,9 @@ namespace HttpFileDownloader.Services
                 }
                 throttledStream.Close();
             }
-            Console.WriteLine("File {0} status - downloaded.", fileLink.Name);
+            _timer.Stop();
+            Console.WriteLine("File {0} status - downloaded in {1} seconds.", fileLink.Name, _timer.ElapsedMilliseconds / 1000);
+            _timer.Reset();
         }
     }
 }
